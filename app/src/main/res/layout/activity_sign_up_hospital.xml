@@ -10,13 +10,24 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_launcher_foreground"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/hospital_png"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/testView_hospital_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hospital Signup"
+        android:textColor="@color/color_primary"
+        android:textSize="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/editText_name"
@@ -24,9 +35,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/item_background"
-        android:hint="Full Name"
+        android:hint="Hospital Name"
         android:textColorHint="@color/color_primary"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/testView_hospital_signup"
         tools:layout_editor_absoluteX="20dp" />
 
     <EditText
@@ -46,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/item_background"
-        android:hint="Email Address"
+        android:hint="Phone"
         android:textColorHint="@color/color_primary"
         app:layout_constraintTop_toBottomOf="@+id/editText_email"
         tools:layout_editor_absoluteX="20dp" />
@@ -58,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/item_background"
-        android:hint="Email Address"
+        android:hint="Aadhar Number"
         android:textColorHint="@color/color_primary"
         app:layout_constraintTop_toBottomOf="@+id/editText_phone"
         tools:layout_editor_absoluteX="20dp" />
@@ -75,6 +86,7 @@
 
 
     <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/item_background"
@@ -83,6 +95,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_pswd"/>
+        app:layout_constraintTop_toBottomOf="@+id/editText_pswd" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

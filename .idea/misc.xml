@@ -5,6 +5,8 @@
       <map>
         <entry key="..\:/Storage/code/Project/Swasthya/app/src/main/res/drawable/itam_background.xml" value="0.2703125" />
         <entry key="..\:/Storage/code/Project/Swasthya/app/src/main/res/drawable/item_background.xml" value="0.24814814814814815" />
+        <entry key="..\:/Storage/code/Project/Swasthya/app/src/main/res/drawable/item_bg_shape.xml" value="0.2323076923076923" />
+        <entry key="..\:/Storage/code/Project/Swasthya/app/src/main/res/drawable/item_bg_shape_on_focus.xml" value="0.2323076923076923" />
         <entry key="..\:/Storage/code/Project/Swasthya/app/src/main/res/layout/activity_sign_up.xml" value="0.25416666666666665" />
         <entry key="..\:/Storage/code/Project/Swasthya/app/src/main/res/layout/activity_sign_up_hospital.xml" value="0.24010416666666667" />
       </map>

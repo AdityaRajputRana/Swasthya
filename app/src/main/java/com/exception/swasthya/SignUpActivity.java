@@ -34,6 +34,32 @@ public class SignUpActivity extends AppCompatActivity {
     TextView textViewSignInAsHospitalInstead;
     private FirebaseAuth mAuth;
 
+    private void initEmergencyListner() {
+        mAuth = FirebaseAuth.getInstance();
+        findViewById(R.id.btnEmergency)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mAuth.signInAnonymously()
+                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()){
+                                            startMainActivity();
+                                        } else {
+                                            Toast.makeText(SignUpActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                    }
+                });
+    }
+
+    private void startMainActivity() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +68,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         initUI();
-
-
+        initEmergencyListner();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

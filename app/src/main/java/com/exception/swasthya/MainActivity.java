@@ -16,19 +16,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(MainActivity.this, SignInHubActivity.class);
-            startActivity(intent);
-        }
-        //sign in and sign up using email added.
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Intent intent = new Intent(MainActivity.this, SignInHubActivity.class);
+            startActivity(intent);
+            this.finish();
+        } else {
+            setContentView(R.layout.activity_main);
+        }
 
     }
 }

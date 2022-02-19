@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
         checkPermissions();//checks and asks for the permissoins in runtime
 
-
-
     }
 
    public void checkPermissions(){
@@ -44,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                this.finish();
            } else {
                setContentView(R.layout.activity_main);
+               startMain();
            }
        } else {
            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -51,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
            }
        }
    }
+
+    private void startMain() {
+
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

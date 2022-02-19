@@ -4,6 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignInHospital">
+    tools:context=".SignInHospital"
+    android:background="@color/black">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/hospital_png"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/testView_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hospital Sign In"
+        android:textColor="@color/color_primary"
+        android:textSize="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <EditText
+        android:id="@+id/editText_user_name_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/item_background"
+        android:hint="Email Address"
+        android:textColorHint="@color/color_primary"
+        app:layout_constraintTop_toBottomOf="@+id/testView_signup"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <EditText
+        android:id="@+id/editText_user_email_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/item_background"
+        android:hint="Password"
+        android:textColorHint="@color/color_primary"
+        app:layout_constraintTop_toBottomOf="@+id/editText_user_name_sign_in"
+        tools:layout_editor_absoluteX="20dp" />
+
+
+    <Button
+        android:id="@+id/button_sign_in_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_background"
+        android:text="Sign in"
+        android:textColor="@color/color_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_user_email_sign_in"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

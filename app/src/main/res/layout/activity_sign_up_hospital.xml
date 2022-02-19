@@ -68,13 +68,13 @@
 
 
     <EditText
-        android:id="@+id/editText_aadhar"
+        android:id="@+id/editText_total_beds"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/color_primary"
         android:layout_margin="20dp"
         android:background="@drawable/item_background"
-        android:hint="Aadhar Number"
+        android:hint="Total Beds"
         android:textColorHint="@color/color_primary"
         app:layout_constraintTop_toBottomOf="@+id/editText_phone"
         tools:layout_editor_absoluteX="20dp" />
@@ -88,11 +88,11 @@
         android:background="@drawable/item_background"
         android:hint="Password"
         android:textColorHint="@color/color_primary"
-        app:layout_constraintTop_toBottomOf="@+id/editText_aadhar" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_total_beds" />
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_create_hospital_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/item_background"
@@ -100,7 +100,25 @@
         android:textColor="@color/color_primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
+        android:paddingRight="25dp"
+        android:paddingLeft="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_pswd" />
+        app:layout_constraintTop_toBottomOf="@+id/button_get_location_hospital_sign_up"
+        app:layout_constraintVertical_bias="0.425" />
+
+    <Button
+        android:id="@+id/button_get_location_hospital_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_background"
+        android:text="fetch location"
+        android:textColor="@color/color_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_pswd"
+        app:layout_constraintVertical_bias="0.301" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,7 +42,7 @@
         tools:layout_editor_absoluteX="20dp" />
 
     <EditText
-        android:id="@+id/editText_user_email_sign_in"
+        android:id="@+id/editText_hospital_password_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -64,6 +64,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_user_email_sign_in"/>
+        app:layout_constraintTop_toBottomOf="@+id/editText_hospital_password_sign_in" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

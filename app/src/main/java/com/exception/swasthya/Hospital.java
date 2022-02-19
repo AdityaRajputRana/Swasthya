@@ -9,9 +9,9 @@ public class Hospital {
     private int mTotalNoOfBeds;
     private int mNumberOfBedsVacant;
     private String mEmailId;
-    private String mRegistrarName;
 
-    public Hospital(String mHospitalName, float mHospitalLatitude, float mHospitalLongitude, String mGeoHash, int mTotalNoOfBeds, int mNumberOfBedsVacant, String mEmailId,String mRegistrarName){
+
+    public Hospital(String mHospitalName, float mHospitalLatitude, float mHospitalLongitude, String mGeoHash, int mTotalNoOfBeds, int mNumberOfBedsVacant, String mEmailId){
         this.mHospitalName = mHospitalName;
         this.mHospitalLatitude = mHospitalLatitude;
         this.mHospitalLongitude = mHospitalLongitude;
@@ -19,7 +19,6 @@ public class Hospital {
         this.mTotalNoOfBeds = mTotalNoOfBeds;
         this.mNumberOfBedsVacant = mNumberOfBedsVacant;
         this.mEmailId = mEmailId;
-        this.mRegistrarName = mRegistrarName;
     }
 
     public String getmHospitalName() {
@@ -78,11 +77,5 @@ public class Hospital {
         this.mEmailId = mEmailId;
     }
 
-    public String getmRegistrarName() {
-        return mRegistrarName;
-    }
 
-    public void setmRegistrarName(String mRegistrarName) {
-        this.mRegistrarName = mRegistrarName;
-    }
 }

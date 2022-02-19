@@ -3,6 +3,7 @@ package com.exception.swasthya;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,7 +54,7 @@ public class SignInActivity extends AppCompatActivity {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     Toast.makeText(SignInActivity.this, "Sign In Successful",
                                             Toast.LENGTH_SHORT).show();
-                                    finish();
+                                    startMainActivity();
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     //Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -66,5 +67,13 @@ public class SignInActivity extends AppCompatActivity {
 
             }
         });
+
     }
+
+    private void startMainActivity() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+
 }

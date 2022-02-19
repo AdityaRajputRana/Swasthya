@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Swasthya">
         <activity
+            android:name=".SignUpHospital"
+            android:exported="false" />
+        <activity
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity android:name=".MainActivity"

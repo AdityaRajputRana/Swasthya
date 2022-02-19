@@ -16,13 +16,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
-        android:id="@+id/testView_signup"
+        android:id="@+id/testView_hospital_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Signup"
+        android:text="Hospital Signup"
         android:textColor="@color/color_primary"
         android:textSize="50dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,63 +31,63 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/editText_user_name"
+        android:id="@+id/editText_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/item_background"
-        android:hint="Full Name"
+        android:hint="Hospital Name"
         android:textColorHint="@color/color_primary"
-        app:layout_constraintTop_toBottomOf="@+id/testView_signup"
-        tools:layout_editor_absoluteX="20dp" />
+        app:layout_constraintTop_toBottomOf="@+id/testView_hospital_signup"
+        tools:layout_editor_absoluteX="20dp"/>
 
     <EditText
-        android:id="@+id/editText_user_email"
+        android:id="@+id/editText_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/item_background"
         android:hint="Email Address"
         android:textColorHint="@color/color_primary"
-        app:layout_constraintTop_toBottomOf="@+id/editText_user_name"
+        app:layout_constraintTop_toBottomOf="@+id/editText_name"
         tools:layout_editor_absoluteX="20dp" />
 
     <EditText
-        android:id="@+id/editText_user_phone"
+        android:id="@+id/editText_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/item_background"
-        android:hint="Email Phone"
+        android:hint="Phone"
         android:textColorHint="@color/color_primary"
-        app:layout_constraintTop_toBottomOf="@+id/editText_user_email"
+        app:layout_constraintTop_toBottomOf="@+id/editText_email"
         tools:layout_editor_absoluteX="20dp" />
 
 
     <EditText
-        android:id="@+id/editText_user_aadhar"
+        android:id="@+id/editText_aadhar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/item_background"
-        android:hint="Aadhar"
+        android:hint="Aadhar Number"
         android:textColorHint="@color/color_primary"
-        app:layout_constraintTop_toBottomOf="@+id/editText_user_phone"
+        app:layout_constraintTop_toBottomOf="@+id/editText_phone"
         tools:layout_editor_absoluteX="20dp" />
 
     <EditText
-        android:id="@+id/editText_user_pswd"
+        android:id="@+id/editText_pswd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/item_background"
         android:hint="Password"
         android:textColorHint="@color/color_primary"
-        app:layout_constraintTop_toBottomOf="@+id/editText_user_aadhar" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_aadhar" />
 
 
     <Button
-        android:id="@+id/button_user"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/item_background"
@@ -95,6 +96,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_user_pswd" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_pswd" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

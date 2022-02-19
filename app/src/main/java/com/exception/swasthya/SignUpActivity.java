@@ -34,6 +34,32 @@ public class SignUpActivity extends AppCompatActivity {
     TextView textViewSignInAsHospitalInstead;
     private FirebaseAuth mAuth;
 
+    private void initEmergencyListner() {
+        mAuth = FirebaseAuth.getInstance();
+        findViewById(R.id.btnEmergency)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mAuth.signInAnonymously()
+                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()){
+                                            startMainActivity();
+                                        } else {
+                                            Toast.makeText(SignUpActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                    }
+                });
+    }
+
+    private void startMainActivity() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +68,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         initUI();
-
-
+        initEmergencyListner();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,7 +77,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String password = editTextpassword.getText().toString();
                 mAuth = FirebaseAuth.getInstance();
 
-                mAuth.signInWithEmailAndPassword(email, password)
+                mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -60,11 +85,12 @@ public class SignUpActivity extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Toast.makeText(SignUpActivity.this, "Sign up Successful",
                                             Toast.LENGTH_SHORT).show();
-                                    finish();
+                                    startMainActivity();
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     //Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(SignUpActivity.this, "Authentication failed. Please Retry",
+                                    Toast.makeText(SignUpActivity.this, "Authentication failed. Please Retry"
+                                            + task.getException().getMessage(),
                                             Toast.LENGTH_SHORT).show();
 
 

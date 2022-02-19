@@ -22,7 +22,7 @@
         android:id="@+id/testView_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Signup"
+        android:text="User Sign In"
         android:textColor="@color/color_primary"
         android:textSize="50dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,59 +30,33 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/editText_user_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/item_background"
-        android:hint="Full Name"
-        android:textColorHint="@color/color_primary"
-        app:layout_constraintTop_toBottomOf="@+id/testView_signup"
-        tools:layout_editor_absoluteX="20dp" />
-
-    <EditText
-        android:id="@+id/editText_user_email"
+        android:id="@+id/editText_user_name_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/item_background"
         android:hint="Email Address"
         android:textColorHint="@color/color_primary"
-        app:layout_constraintTop_toBottomOf="@+id/editText_user_name"
+        app:layout_constraintTop_toBottomOf="@+id/testView_signup"
         tools:layout_editor_absoluteX="20dp" />
 
     <EditText
-        android:id="@+id/editText_user_phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/item_background"
-        android:hint="Email Phone"
-        android:textColorHint="@color/color_primary"
-        app:layout_constraintTop_toBottomOf="@+id/editText_user_email"
-        tools:layout_editor_absoluteX="20dp" />
-
-
-    <EditText
-        android:id="@+id/editText_user_aadhar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/item_background"
-        android:hint="Aadhar"
-        android:textColorHint="@color/color_primary"
-        app:layout_constraintTop_toBottomOf="@+id/editText_user_phone"
-        tools:layout_editor_absoluteX="20dp" />
-
-    <EditText
-        android:id="@+id/editText_user_pswd"
+        android:id="@+id/editText_user_email_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/item_background"
         android:hint="Password"
         android:textColorHint="@color/color_primary"
-        app:layout_constraintTop_toBottomOf="@+id/editText_user_aadhar" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_user_name_sign_in"
+        tools:layout_editor_absoluteX="20dp" />
+
+
+
+
+
+
+
 
 
     <Button
@@ -90,23 +64,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/item_background"
-        android:text="Create Account"
+        android:text="Sign in"
         android:textColor="@color/color_primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_user_pswd"/>
-    <Button
-        android:id="@+id/button_sign_in_onsignup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/item_background"
-        android:text="Sign in Instead!"
-        android:padding="1dp"
-        android:textColor="@color/color_primary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_create_account"/>
+        app:layout_constraintTop_toBottomOf="@+id/editText_user_email_sign_in"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

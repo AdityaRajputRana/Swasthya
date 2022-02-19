@@ -56,17 +56,33 @@
         android:background="@android:color/white">
 
         <TextView
+            android:id="@+id/hospitalName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:padding="16dp"
             android:text="@string/app_name"
-            android:textAlignment="center"
-            android:textColor="@android:color/holo_blue_light"
-            android:textSize="24sp"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:padding="4dp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/icuBeds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ICU Beds"
+            android:padding="4dp"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
+        <TextView
+            android:id="@+id/covidBeds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="Covid Beds"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

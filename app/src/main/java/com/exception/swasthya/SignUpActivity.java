@@ -2,8 +2,11 @@ package com.exception.swasthya;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +39,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
 
         initUI();
 
@@ -87,19 +91,38 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+
         textViewSignInAsHospitalInstead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SignUpActivity.this, SignInHospital.class);
                 startActivity(intent);
+
+                findViewById(R.id.btnEmergency).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mAuth.signInAnonymously()
+                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                                            SignUpActivity.this.finish();
+                                        } else {
+                                            Toast.makeText(SignUpActivity.this, "Some error occurred" +
+                                                    task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
+                    }
+                });
+
             }
         });
-
     }
 
     public void initUI() {
-        editTextAadhar = (EditText) findViewById(R.id.editText_user_aadhar);
-        editTextPhone = (EditText) findViewById(R.id.editText_user_phone);
         editTextEmail = (EditText) findViewById(R.id.editText_user_email);
         editTextName = (EditText) findViewById(R.id.editText_user_name);
         editTextpassword = (EditText) findViewById(R.id.editText_user_pswd);
@@ -114,4 +137,6 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     }
+
+
 }

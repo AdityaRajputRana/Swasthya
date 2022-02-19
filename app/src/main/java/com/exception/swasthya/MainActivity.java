@@ -15,6 +15,9 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.geofire.GeoFireUtils;
@@ -35,6 +38,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -157,11 +162,67 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
 
-
+                        sortDocs(matchingDocs, center);
 
                     }
                 });
     }
+
+    private void sortDocs(List<DocumentSnapshot> matchingDocs, GeoLocation center) {
+        Collections.sort(matchingDocs, new Comparator<DocumentSnapshot>() {
+            @Override
+            public int compare(DocumentSnapshot documentSnapshot, DocumentSnapshot t1) {
+                double lat = documentSnapshot.getDouble("lat");
+                double lng = documentSnapshot.getDouble("lng");
+
+                GeoLocation docLocation = new GeoLocation(lat, lng);
+                double distance = GeoFireUtils.getDistanceBetween(docLocation, center);
+
+                double lat1 = t1.getDouble("lat");
+                double lng1 = t1.getDouble("lng");
+
+                // We have to filter out a few false positives due to GeoHash
+                // accuracy, but most will match
+                GeoLocation docLocation2 = new GeoLocation(lat1, lng1);
+                double distance1 = GeoFireUtils.getDistanceBetween(docLocation2, center);
+
+                if (distance == distance1) {
+                    return 0;
+                } else if (distance > distance1){
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        });
+
+        hospitals = new ArrayList<Hospital>();
+        for (DocumentSnapshot snap: matchingDocs) {
+            Hospital hospital = snap.toObject(Hospital.class);
+            hospitals.add(hospital);
+        }
+
+        showHospitals();
+    }
+
+    private ProgressBar progressBar;
+    private void showHospitals() {
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
+        TextView textView = findViewById(R.id.infoText);
+        TextView icuBedTxt = findViewById(R.id.icuBeds);
+        TextView covidBedsTxt = findViewById(R.id.covidBeds);
+        TextView hospitalName = findViewById(R.id.hospitalName);
+
+        if (hospitals.size() > 0) {
+            hospitalName.setText(hospitals.get(0).getmHospitalName());
+            covidBedsTxt.setText(String.valueOf(hospitals.get(0).getmNumberOfBedsVacant()));
+        } else {
+            textView.setText("No hope for you! No Hospitals nearby. Say good bye to your family and friends.");
+        }
+    }
+
+    private ArrayList<Hospital> hospitals;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

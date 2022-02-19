@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,14 +26,11 @@ public class SignUpActivity extends AppCompatActivity {
     EditText editTextAadhar;
     EditText editTextpassword;
     Button button;
-    Button buttonSignInInstead;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
+    TextView textViewSignUpAsHospital;
+    TextView textViewSignInInstead;
+    TextView textViewSignInAsHospitalInstead;
     private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +38,6 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         initUI();
-        mAuth = FirebaseAuth.getInstance();
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 String email = editTextEmail.getText().toString();
                 String password = editTextpassword.getText().toString();
-
+                mAuth = FirebaseAuth.getInstance();
 
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
@@ -74,10 +71,26 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        buttonSignInInstead.setOnClickListener(new View.OnClickListener() {
+        textViewSignUpAsHospital.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignUpActivity.this, SignUpHospital.class);
+                startActivity(intent);
+            }
+        });
+
+        textViewSignInInstead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        textViewSignInAsHospitalInstead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignUpActivity.this, SignInHospital.class);
                 startActivity(intent);
             }
         });
@@ -91,7 +104,14 @@ public class SignUpActivity extends AppCompatActivity {
         editTextName = (EditText) findViewById(R.id.editText_user_name);
         editTextpassword = (EditText) findViewById(R.id.editText_user_pswd);
         button = (Button) findViewById(R.id.button_create_account);
-        buttonSignInInstead = (Button) findViewById(R.id.button_sign_in_onsignup);
+        textViewSignUpAsHospital = (TextView)findViewById(R.id.text_view_sign_up_as_hospital_on_sign_up);
+        textViewSignInInstead = (TextView)findViewById(R.id.text_view_sign_in_as_user_on_sign_up);
+        textViewSignInAsHospitalInstead = (TextView) findViewById(R.id.textview_sign_in_as_hospital_onsignup);
+
+
+
+
+
 
     }
 }

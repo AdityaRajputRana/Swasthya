@@ -32,10 +32,10 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        buttonSignIn = (Button)findViewById(R.id.button_sign_in_onsignup);
+        buttonSignIn = (Button)findViewById(R.id.button_sign_in_account);
         editTestEmailOnSignIn = (EditText) findViewById(R.id.editText_user_name_sign_in);
         editTestPasswordOnSignIn = (EditText) findViewById(R.id.editText_user_email_sign_in);
-
+        mAuth = FirebaseAuth.getInstance();
 
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override

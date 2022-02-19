@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Swasthya">
         <activity
+            android:name=".SignInHospital"
+            android:exported="false" />
+        <activity
             android:name=".SignInActivity"
             android:exported="false" />
         <activity

@@ -52,15 +52,8 @@
         tools:layout_editor_absoluteX="20dp" />
 
 
-
-
-
-
-
-
-
     <Button
-        android:id="@+id/button_create_account"
+        android:id="@+id/button_sign_in_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/item_background"

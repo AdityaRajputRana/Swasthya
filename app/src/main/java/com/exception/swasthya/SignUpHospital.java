@@ -42,7 +42,7 @@ public class SignUpHospital extends AppCompatActivity {
                 String hospitalName = editTextName.getText().toString();
                 String phoneNumber = editTextPhone.getText().toString();
                 String email = editTextEmail.getText().toString();
-                int totalBeds
+                int totalBeds;
 
                 try{
                     totalBeds = Integer.parseInt(editTextTotalBeds.getText().toString());

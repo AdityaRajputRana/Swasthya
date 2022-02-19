@@ -25,6 +25,9 @@ import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQueryBounds;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,7 +46,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private FirebaseAuth mAuth;
 
@@ -91,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
         * */
 
         getLastLocation();
+        loadMap();
+    }
+
+    private void loadMap() {
+
     }
 
     private void getLastLocation() {
@@ -235,5 +243,10 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1002){
             getLastLocation();
         }
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+
     }
 }

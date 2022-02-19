@@ -42,16 +42,17 @@ public class SignUpHospital extends AppCompatActivity {
                 String hospitalName = editTextName.getText().toString();
                 String phoneNumber = editTextPhone.getText().toString();
                 String email = editTextEmail.getText().toString();
+                int totalBeds;
 
                 try{
-                    int totalBeds = Integer.parseInt(editTextTotalBeds.getText().toString());
+                    totalBeds = Integer.parseInt(editTextTotalBeds.getText().toString());
                 }catch (Exception e){
                     e.printStackTrace();
                     AlertDialog.Builder builder = new AlertDialog.Builder(SignUpHospital.this);
                     AlertDialog alert = builder.create();
                     //Setting the title manually
-                    alert.setTitle("Please enter an integer in place of number of beds");
-
+                    alert.setTitle("Please enter an integer in place of number of beds. currently setting number of beds 0. change them afterwords");
+                    totalBeds = 0;
                     alert.show();
                 }
 

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".ChangeNumberOfBeds">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/hospital_png"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Normal Beds"
+            android:textSize="50sp"
+            android:textColor="@color/color_primary"
+            android:textAlignment="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Beds "
+                    android:textSize="20sp"
+                    android:textColor="@color/color_primary"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:id="@+id/edittext_normal_total"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_primary"
+                    android:textColorHint="@color/color_primary"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vacant Beds "
+                    android:textSize="20sp"
+                    android:textColor="@color/color_primary"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:id="@+id/edittext_normal_vacant"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_primary"
+                    android:textColorHint="@color/color_primary"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Covid Beds"
+            android:textSize="50sp"
+            android:textColor="@color/color_primary"
+            android:textAlignment="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Beds "
+                    android:textSize="20sp"
+                    android:textColor="@color/color_primary"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:id="@+id/edittext_covid_total"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_primary"
+                    android:textColorHint="@color/color_primary"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vacant Beds "
+                    android:textSize="20sp"
+                    android:textColor="@color/color_primary"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edittext_covid_vacant"
+                    android:textColor="@color/color_primary"
+                    android:textColorHint="@color/color_primary"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ICU Beds"
+            android:textSize="50sp"
+            android:textColor="@color/color_primary"
+            android:textAlignment="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Beds "
+                    android:textSize="20sp"
+                    android:textColor="@color/color_primary"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edittext_icu_total"
+                    android:textColor="@color/color_primary"
+                    android:textColorHint="@color/color_primary"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vacant Beds "
+                    android:textSize="20sp"
+                    android:textColor="@color/color_primary"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:id="@+id/edittext_icu_vacant"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_primary"
+                    android:textColorHint="@color/color_primary"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+
+
+
+    </LinearLayout>
+</ScrollView>

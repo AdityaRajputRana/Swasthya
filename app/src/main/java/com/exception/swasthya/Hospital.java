@@ -6,19 +6,31 @@ public class Hospital {
     private float mHospitalLongitude;
     private float mHospitalLatitude;
     private String mGeoHash;
-    private int mTotalNoOfBeds;
-    private int mNumberOfBedsVacant;
+
+    private int mTotalNoOfCovidBeds;
+    private int mVacantCovidBeds;
+    private int mTotalICUBeds;
+    private int mVacantICUBeds;
+
+    private int mTotalNormalBeds;
+    private int mVacantNormalBeds;
+
     private String mEmailId;
+    private String UId;
 
-
-    public Hospital(String mHospitalName, float mHospitalLatitude, float mHospitalLongitude, String mGeoHash, int mTotalNoOfBeds, int mNumberOfBedsVacant, String mEmailId){
+    public Hospital(String mHospitalName, float mHospitalLongitude, float mHospitalLatitude, String mGeoHash, int mTotalNoOfCovidBeds, int mVacantCovidBeds, int mTotalICUBeds, int mVacantICUBeds, int mTotalNormalBeds, int mVacantNormalBeds, String mEmailId, String UId) {
         this.mHospitalName = mHospitalName;
-        this.mHospitalLatitude = mHospitalLatitude;
         this.mHospitalLongitude = mHospitalLongitude;
+        this.mHospitalLatitude = mHospitalLatitude;
         this.mGeoHash = mGeoHash;
-        this.mTotalNoOfBeds = mTotalNoOfBeds;
-        this.mNumberOfBedsVacant = mNumberOfBedsVacant;
+        this.mTotalNoOfCovidBeds = mTotalNoOfCovidBeds;
+        this.mVacantCovidBeds = mVacantCovidBeds;
+        this.mTotalICUBeds = mTotalICUBeds;
+        this.mVacantICUBeds = mVacantICUBeds;
+        this.mTotalNormalBeds = mTotalNormalBeds;
+        this.mVacantNormalBeds = mVacantNormalBeds;
         this.mEmailId = mEmailId;
+        this.UId = UId;
     }
 
     public String getmHospitalName() {
@@ -53,20 +65,52 @@ public class Hospital {
         this.mGeoHash = mGeoHash;
     }
 
-    public int getmTotalNoOfBeds() {
-        return mTotalNoOfBeds;
+    public int getmTotalNoOfCovidBeds() {
+        return mTotalNoOfCovidBeds;
     }
 
-    public void setmTotalNoOfBeds(int mTotalNoOfBeds) {
-        this.mTotalNoOfBeds = mTotalNoOfBeds;
+    public void setmTotalNoOfCovidBeds(int mTotalNoOfCovidBeds) {
+        this.mTotalNoOfCovidBeds = mTotalNoOfCovidBeds;
     }
 
-    public int getmNumberOfBedsVacant() {
-        return mNumberOfBedsVacant;
+    public int getmVacantCovidBeds() {
+        return mVacantCovidBeds;
     }
 
-    public void setmNumberOfBedsVacant(int mNumberOfBedsVacant) {
-        this.mNumberOfBedsVacant = mNumberOfBedsVacant;
+    public void setmVacantCovidBeds(int mVacantCovidBeds) {
+        this.mVacantCovidBeds = mVacantCovidBeds;
+    }
+
+    public int getmTotalICUBeds() {
+        return mTotalICUBeds;
+    }
+
+    public void setmTotalICUBeds(int mTotalICUBeds) {
+        this.mTotalICUBeds = mTotalICUBeds;
+    }
+
+    public int getmVacantICUBeds() {
+        return mVacantICUBeds;
+    }
+
+    public void setmVacantICUBeds(int mVacantICUBeds) {
+        this.mVacantICUBeds = mVacantICUBeds;
+    }
+
+    public int getmTotalNormalBeds() {
+        return mTotalNormalBeds;
+    }
+
+    public void setmTotalNormalBeds(int mTotalNormalBeds) {
+        this.mTotalNormalBeds = mTotalNormalBeds;
+    }
+
+    public int getmVacantNormalBeds() {
+        return mVacantNormalBeds;
+    }
+
+    public void setmVacantNormalBeds(int mVacantNormalBeds) {
+        this.mVacantNormalBeds = mVacantNormalBeds;
     }
 
     public String getmEmailId() {
@@ -77,5 +121,11 @@ public class Hospital {
         this.mEmailId = mEmailId;
     }
 
+    public String getUId() {
+        return UId;
+    }
 
+    public void setUId(String UId) {
+        this.UId = UId;
+    }
 }

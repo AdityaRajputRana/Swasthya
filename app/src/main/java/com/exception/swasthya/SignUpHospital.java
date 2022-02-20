@@ -112,32 +112,30 @@ public class SignUpHospital extends AppCompatActivity {
                 dialog.setTitle("Please wait!");
                 dialog.setMessage("While we are creating an account for you");
 
-                createHospitalAccount.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.show();
-                        mAuth = FirebaseAuth.getInstance();
-                        mAuth.createUserWithEmailAndPassword(email, password)
-                                .addOnCompleteListener(SignUpHospital.this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        dialog.dismiss();
-                                        if (task.isSuccessful()) {
-                                            if(geoHash!=null) {
-                                                String UId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                                //initially set all number of beds = 0
-                                                Hospital hospital = new Hospital(hospitalName, longitude, latitude, geoHash, 0, 0, 0, 0, 0, 0, email, UId);
-                                                FirebaseFirestore.getInstance()
-                                                        .collection("Hospitals")
-                                                        .document(UId)
-                                                        .set(hospital)
+                dialog.show();
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(SignUpHospital.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                dialog.dismiss();
+                                if (task.isSuccessful()) {
+                                    if(geoHash!=null && !geoHash.isEmpty()) {
+
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        //initially set all number of beds = 0
+                                        Hospital hospital = new Hospital(hospitalName, longitude, latitude, geoHash, 0, 0, 0, 0, 0, 0, email, "");
+                                        FirebaseFirestore.getInstance()
+                                                .collection("Hospitals")
+                                                .document(user.getUid())
+                                                .set(hospital)
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()){
                                                             Toast.makeText(SignUpHospital.this, "Hospital ID created", Toast.LENGTH_LONG).show();
                                                             SharedPreferences preferences = SignUpHospital.this.getSharedPreferences("MyPref",MODE_PRIVATE);
-                                                            preferences.edit().putBoolean("isHospital", true);
+                                                            preferences.edit().putBoolean("isHospital", true).apply();
                                                             Intent intent = new Intent(SignUpHospital.this, ChangeNumberOfBeds.class);
                                                             startActivity(intent);
                                                             SignUpHospital.this.finish();
@@ -147,20 +145,18 @@ public class SignUpHospital extends AppCompatActivity {
                                                     }
                                                 });
 
-                                            }else{
-                                                Toast.makeText(SignUpHospital.this, "Please Presss the button Fetch location",Toast.LENGTH_LONG).show();
-                                            }
-                                        } else {
-                                            Toast.makeText(SignUpHospital.this, "Authentication failed. Please Retry"
-                                                            + task.getException().getMessage(),
-                                                    Toast.LENGTH_SHORT).show();
-
-
-                                        }
+                                    }else{
+                                        Toast.makeText(SignUpHospital.this, "Please Press the button Fetch location",Toast.LENGTH_LONG).show();
                                     }
-                                });
-                    }
-                });
+                                } else {
+                                    Toast.makeText(SignUpHospital.this, "Authentication failed. Please Retry"
+                                                    + task.getException().getMessage(),
+                                            Toast.LENGTH_SHORT).show();
+
+
+                                }
+                            }
+                        });
 
 
             }
@@ -190,7 +186,7 @@ public class SignUpHospital extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.i("SWA", "Failed" + e.getMessage());
+                            Toast.makeText(SignUpHospital.this,"Task Failed",Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -203,6 +199,7 @@ public class SignUpHospital extends AppCompatActivity {
                                 latitude = location.getLatitude();
                                 longitude = location.getLongitude();
                                 geoHash = getGeoHash(latitude, longitude);
+                                Toast.makeText(SignUpHospital.this,"Current location set as hospital location",Toast.LENGTH_SHORT).show();
                                 createHospitalAccount.setEnabled(true);
                             }
                         }

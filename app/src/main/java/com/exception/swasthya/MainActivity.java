@@ -56,13 +56,25 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private FirebaseAuth mAuth;
-
+    Button button_number_of_beds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        button_number_of_beds = findViewById(R.id.update_beds_main_activity);
+
+        button_number_of_beds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ChangeNumberOfBeds.class));
+            }
+        });
 
         checkPermissions();//checks and asks for the permissoins in runtime
+
+
     }
 
     public void checkPermissions() {
@@ -72,19 +84,36 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ) {
             mAuth = FirebaseAuth.getInstance();
             FirebaseUser currentUser = mAuth.getCurrentUser();
-            if (currentUser == null) {
-                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-                startActivity(intent);
-                this.finish();
-            } else {
+            if (currentUser != null) {
                 SharedPreferences preferences = this.getSharedPreferences("MyPref", MODE_PRIVATE);
-                if (preferences.getBoolean("isHospital", false)){
-                    startActivity(new Intent(MainActivity.this, ChangeNumberOfBeds.class));
-                    MainActivity.this.finish();
-                } else {
-                    setContentView(R.layout.activity_main);
-                    startMain();
+                if(!preferences.contains("isHospital")) {
+                    FirebaseFirestore.getInstance().collection("Hospitals")
+                            .document(mAuth.getUid())
+                            .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.isSuccessful()){
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean("isHospital", true);
+                                editor.apply();
+                            }else{
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean("isHospital", false);
+                                editor.apply();
+                            }
+                        }
+                    });
                 }
+
+                if (preferences.getBoolean("isHospital", true)) {
+                    button_number_of_beds.setVisibility(View.VISIBLE);
+                }
+
+                    startMain();
+
+
+            } else {
+                startActivity(new Intent(MainActivity.this, SignUpActivity.class));
             }
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -176,6 +205,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void logOut(View view){
         FirebaseAuth.getInstance().signOut();
+        try {
+            SharedPreferences preferences = MainActivity.this.getSharedPreferences("MyPref", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.remove("isHospital").apply();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         startActivity(new Intent(this, SignUpActivity.class));
         finish();
     }
@@ -183,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Location mLocation;
 
     private void fetchHospitals(Location location) {
-        Toast.makeText(this, "Location Fetched", Toast.LENGTH_SHORT).show();
+
         Log.i("SWA", "Location");
 
 
@@ -408,4 +444,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private GoogleMap map;
+
+
 }

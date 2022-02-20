@@ -3,8 +3,8 @@ package com.exception.swasthya;
 public class Hospital {
 
     private String mHospitalName;
-    private String mHospitalLongitude;
-    private String mHospitalLatitude;
+    private double mHospitalLongitude;
+    private double mHospitalLatitude;
     private String mGeoHash;
 
     private int mTotalNoOfCovidBeds;
@@ -18,7 +18,7 @@ public class Hospital {
     private String mEmailId;
     private String UId;
 
-    public Hospital(String mHospitalName, String mHospitalLongitude, String mHospitalLatitude, String mGeoHash, int mTotalNoOfCovidBeds, int mVacantCovidBeds, int mTotalICUBeds, int mVacantICUBeds, int mTotalNormalBeds, int mVacantNormalBeds, String mEmailId, String UId) {
+    public Hospital(String mHospitalName, double mHospitalLongitude, double mHospitalLatitude, String mGeoHash, int mTotalNoOfCovidBeds, int mVacantCovidBeds, int mTotalICUBeds, int mVacantICUBeds, int mTotalNormalBeds, int mVacantNormalBeds, String mEmailId, String UId) {
         this.mHospitalName = mHospitalName;
         this.mHospitalLongitude = mHospitalLongitude;
         this.mHospitalLatitude = mHospitalLatitude;
@@ -41,19 +41,19 @@ public class Hospital {
         this.mHospitalName = mHospitalName;
     }
 
-    public String getmHospitalLongitude() {
+    public double getmHospitalLongitude() {
         return mHospitalLongitude;
     }
 
-    public void setmHospitalLongitude(String mHospitalLongitude) {
+    public void setmHospitalLongitude(double mHospitalLongitude) {
         this.mHospitalLongitude = mHospitalLongitude;
     }
 
-    public String getmHospitalLatitude() {
+    public double getmHospitalLatitude() {
         return mHospitalLatitude;
     }
 
-    public void setmHospitalLatitude(String mHospitalLatitude) {
+    public void setmHospitalLatitude(double mHospitalLatitude) {
         this.mHospitalLatitude = mHospitalLatitude;
     }
 

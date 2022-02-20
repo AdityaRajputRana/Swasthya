@@ -170,6 +170,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    public void logOut(View view){
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(this, SignUpActivity.class));
+        finish();
+    }
+
     private Location mLocation;
 
     private void fetchHospitals(Location location) {

@@ -8,6 +8,10 @@ public class Hospital {
     private String mGeoHash;
 
     private int mTotalNoOfCovidBeds;
+
+    public Hospital() {
+    }
+
     private int mVacantCovidBeds;
     private int mTotalICUBeds;
     private int mVacantICUBeds;

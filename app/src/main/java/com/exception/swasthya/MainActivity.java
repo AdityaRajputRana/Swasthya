@@ -166,6 +166,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 map.addMarker(new MarkerOptions()
                 .position(new LatLng(h.getmHospitalLatitude(), h.getmHospitalLongitude()))
                 .title(h.getmHospitalName()));
+
+                Log.i("Showing hospital","hospital" );
             }
         }
     }
@@ -208,13 +210,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         for (Task<QuerySnapshot> task : tasks) {
                             QuerySnapshot snap = task.getResult();
                             for (DocumentSnapshot doc : snap.getDocuments()) {
-                                double lat = doc.getDouble("lat");
-                                double lng = doc.getDouble("lng");
-
-                                // We have to filter out a few false positives due to GeoHash
-                                // accuracy, but most will match
-                                GeoLocation docLocation = new GeoLocation(lat, lng);
-                                double distanceInM = GeoFireUtils.getDistanceBetween(docLocation, center);
                                 matchingDocs.add(doc);
                             }
                         }
@@ -229,14 +224,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Collections.sort(matchingDocs, new Comparator<DocumentSnapshot>() {
             @Override
             public int compare(DocumentSnapshot documentSnapshot, DocumentSnapshot t1) {
-                double lat = documentSnapshot.getDouble("lat");
-                double lng = documentSnapshot.getDouble("lng");
+                double lat = documentSnapshot.getDouble("mHospitalLatitude");
+                double lng = documentSnapshot.getDouble("mHospitalLongitude");
 
                 GeoLocation docLocation = new GeoLocation(lat, lng);
                 double distance = GeoFireUtils.getDistanceBetween(docLocation, center);
 
-                double lat1 = t1.getDouble("lat");
-                double lng1 = t1.getDouble("lng");
+                double lat1 = t1.getDouble("mHospitalLatitude");
+                double lng1 = t1.getDouble("mHospitalLongitude");
 
                 // We have to filter out a few false positives due to GeoHash
                 // accuracy, but most will match
@@ -271,6 +266,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         TextView covidBedsTxt = findViewById(R.id.covidBeds);
         TextView normalBedsTxt = findViewById(R.id.normalBeds);
         TextView hospitalName = findViewById(R.id.hospitalName);
+
 
         if (hospitals.size() > 0) {
             Hospital hospital = hospitals.get(0);
@@ -307,6 +303,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             findViewById(R.id.hospitalDetailsLayout).setVisibility(View.GONE);
             textView.setText("No Beds found in our database 100 km radius! No Hospitals nearby.");
         }
+        locateHospitalsOnMap();
     }
 
     private ArrayList<Hospital> hospitals;

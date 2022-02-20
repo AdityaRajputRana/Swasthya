@@ -25,9 +25,14 @@ import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQueryBounds;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,14 +61,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
 
         checkPermissions();//checks and asks for the permissoins in runtime
-
     }
 
     public void checkPermissions() {
         if (ContextCompat.checkSelfPermission(
                 getApplicationContext(), Manifest.permission.INTERNET) ==
                 PackageManager.PERMISSION_GRANTED
-                ) {
+        ) {
             mAuth = FirebaseAuth.getInstance();
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser == null) {
@@ -98,12 +102,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void loadMap() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
     }
 
     private void getLastLocation() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1002);
             }
@@ -114,20 +121,50 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.i("SWA", "Failed"+ e.getMessage());
+                        Log.i("SWA", "Failed" + e.getMessage());
                     }
                 })
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
-                        Log.i("SWA", "succ");
 
                         if (location != null) {
                             fetchHospitals(location);
+                            mLocation = location;
+                            addGPSMarker();
                         }
                     }
                 });
     }
+
+    private void addGPSMarker() {
+        if (map != null
+                && mLocation != null) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                map.setMyLocationEnabled(true);
+            } else {
+                map.addMarker(new MarkerOptions()
+                        .position(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()))
+                        .title("Your Location"));
+            }
+            GoogleMapOptions options = new GoogleMapOptions();
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(),
+                    mLocation.getLongitude()),13));
+            locateHospitalsOnMap();
+        }
+    }
+
+    private void locateHospitalsOnMap() {
+        if (map != null && hospitals != null){
+            for (Hospital h : hospitals){
+                map.addMarker(new MarkerOptions()
+                .position(new LatLng(h.getmHospitalLatitude(), h.getmHospitalLongitude()))
+                .title(h.getmHospitalName()));
+            }
+        }
+    }
+
+    private Location mLocation;
 
     private void fetchHospitals(Location location) {
         Toast.makeText(this, "Location Fetched", Toast.LENGTH_SHORT).show();
@@ -247,6 +284,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-
+        map = googleMap;
+        addGPSMarker();
     }
+
+    private GoogleMap map;
 }

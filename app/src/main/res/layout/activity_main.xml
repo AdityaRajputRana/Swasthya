@@ -160,4 +160,12 @@
         </LinearLayout>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/update_beds_main_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Hospital"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

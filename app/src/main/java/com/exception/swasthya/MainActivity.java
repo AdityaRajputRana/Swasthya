@@ -56,13 +56,25 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private FirebaseAuth mAuth;
-
+    Button button_number_of_beds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        button_number_of_beds = findViewById(R.id.update_beds_main_activity);
+
+        button_number_of_beds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ChangeNumberOfBeds.class));
+            }
+        });
 
         checkPermissions();//checks and asks for the permissoins in runtime
+
+
     }
 
     public void checkPermissions() {
@@ -74,13 +86,32 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {
                 SharedPreferences preferences = this.getSharedPreferences("MyPref", MODE_PRIVATE);
-                if (preferences.getBoolean("isHospital", false)){
-                    startActivity(new Intent(MainActivity.this, ChangeNumberOfBeds.class));
-                    MainActivity.this.finish();
-                } else {
-                    setContentView(R.layout.activity_main);
-                    startMain();
+                if(!preferences.contains("isHospital")) {
+                    FirebaseFirestore.getInstance().collection("Hospitals")
+                            .document(mAuth.getUid())
+                            .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.isSuccessful()){
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean("isHospital", true);
+                                editor.apply();
+                            }else{
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean("isHospital", false);
+                                editor.apply();
+                            }
+                        }
+                    });
                 }
+
+                if (preferences.getBoolean("isHospital", true)) {
+                    button_number_of_beds.setVisibility(View.VISIBLE);
+                }
+
+                    startMain();
+
+
             } else {
                 startActivity(new Intent(MainActivity.this, SignUpActivity.class));
             }

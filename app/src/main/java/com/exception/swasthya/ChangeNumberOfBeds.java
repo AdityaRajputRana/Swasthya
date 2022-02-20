@@ -3,6 +3,7 @@ package com.exception.swasthya;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -48,12 +49,12 @@ public class ChangeNumberOfBeds extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
                     hospital = task.getResult().toObject(Hospital.class);
-                    editTextCovidTotal.setText(hospital.getmTotalNoOfCovidBeds());
-                    editTextCovidVacant.setText(hospital.getmVacantCovidBeds());
-                    editTextNormalTotal.setText(hospital.getmTotalNormalBeds());
-                    editTextNormalVacant.setText(hospital.getmVacantNormalBeds());
-                    editTextICUVacant.setText(hospital.getmVacantICUBeds());
-                    editTextICUTotal.setText(hospital.getmTotalICUBeds());
+                    editTextCovidTotal.setText(String.valueOf(hospital.getmTotalNoOfCovidBeds()));
+                    editTextCovidVacant.setText(String.valueOf(hospital.getmVacantCovidBeds()));
+                    editTextNormalTotal.setText(String.valueOf(hospital.getmTotalNormalBeds()));
+                    editTextNormalVacant.setText(String.valueOf(hospital.getmVacantNormalBeds()));
+                    editTextICUVacant.setText(String.valueOf(hospital.getmVacantICUBeds()));
+                    editTextICUTotal.setText(String.valueOf(hospital.getmTotalICUBeds()));
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -98,6 +99,7 @@ public class ChangeNumberOfBeds extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(ChangeNumberOfBeds.this,"Changed number of beds.", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(ChangeNumberOfBeds.this , MainActivity.class ));
                         finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {

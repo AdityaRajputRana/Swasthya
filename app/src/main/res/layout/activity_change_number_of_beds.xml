@@ -189,7 +189,11 @@
         </LinearLayout>
 
 
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Total Beds"
+        android:id="@+id/button_update_beds"/>
 
 
 

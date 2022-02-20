@@ -72,11 +72,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ) {
             mAuth = FirebaseAuth.getInstance();
             FirebaseUser currentUser = mAuth.getCurrentUser();
-            if (currentUser == null) {
-                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-                startActivity(intent);
-                this.finish();
-            } else {
+            if (currentUser != null) {
                 SharedPreferences preferences = this.getSharedPreferences("MyPref", MODE_PRIVATE);
                 if (preferences.getBoolean("isHospital", false)){
                     startActivity(new Intent(MainActivity.this, ChangeNumberOfBeds.class));
@@ -85,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     setContentView(R.layout.activity_main);
                     startMain();
                 }
+            } else {
+                startActivity(new Intent(MainActivity.this, SignUpActivity.class));
             }
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -408,4 +406,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private GoogleMap map;
+
+
 }

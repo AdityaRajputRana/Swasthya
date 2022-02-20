@@ -4,14 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 public class ChangeNumberOfBeds extends AppCompatActivity {
 
@@ -42,8 +48,64 @@ public class ChangeNumberOfBeds extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
                     hospital = task.getResult().toObject(Hospital.class);
-
+                    editTextCovidTotal.setText(hospital.getmTotalNoOfCovidBeds());
+                    editTextCovidVacant.setText(hospital.getmVacantCovidBeds());
+                    editTextNormalTotal.setText(hospital.getmTotalNormalBeds());
+                    editTextNormalVacant.setText(hospital.getmVacantNormalBeds());
+                    editTextICUVacant.setText(hospital.getmVacantICUBeds());
+                    editTextICUTotal.setText(hospital.getmTotalICUBeds());
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(ChangeNumberOfBeds.this, "Failed fetching total beds", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+
+        Button button = findViewById(R.id.button_update_beds);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if(!editTextCovidTotal.getText().toString().isEmpty()){
+                    hospital.setmTotalNoOfCovidBeds(Integer.parseInt(editTextCovidTotal.getText().toString()));
+                }
+                if(!editTextCovidVacant.getText().toString().isEmpty()){
+                    hospital.setmTotalNoOfCovidBeds(Integer.parseInt(editTextCovidVacant.getText().toString()));
+                }
+                if(!editTextICUTotal.getText().toString().isEmpty()){
+                    hospital.setmTotalNoOfCovidBeds(Integer.parseInt(editTextICUTotal.getText().toString()));
+                }
+                if(!editTextICUVacant.getText().toString().isEmpty()){
+                    hospital.setmTotalNoOfCovidBeds(Integer.parseInt(editTextICUVacant.getText().toString()));
+                }
+                if(!editTextNormalTotal.getText().toString().isEmpty()){
+                    hospital.setmTotalNoOfCovidBeds(Integer.parseInt(editTextNormalTotal.getText().toString()));
+                }
+                if(!editTextNormalVacant.getText().toString().isEmpty()){
+                    hospital.setmTotalNoOfCovidBeds(Integer.parseInt(editTextNormalVacant.getText().toString()));
+                }
+
+                FirebaseFirestore.getInstance()
+                        .collection("Hospitals")
+                        .document(UId).set(hospital).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(ChangeNumberOfBeds.this,"Changed number of beds.", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ChangeNumberOfBeds.this, "Failed setting total beds", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 

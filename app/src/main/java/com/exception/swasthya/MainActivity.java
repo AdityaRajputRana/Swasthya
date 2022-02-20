@@ -8,7 +8,9 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -73,8 +75,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(intent);
                 this.finish();
             } else {
-                setContentView(R.layout.activity_main);
-                startMain();
+                SharedPreferences preferences = this.getSharedPreferences("MyPref", MODE_PRIVATE);
+                if (preferences.getBoolean("isHospital", false)){
+                    startActivity(new Intent(MainActivity.this, ChangeNumberOfBeds.class));
+                    MainActivity.this.finish();
+                } else {
+                    setContentView(R.layout.activity_main);
+                    startMain();
+                }
             }
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -170,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         final GeoLocation center = new GeoLocation(location.getLatitude(), location.getLongitude());
-        final double radiusInM = 50 * 1000;
+        final double radiusInM = 100 * 1000;
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         List<GeoQueryBounds> bounds = GeoFireUtils.getGeoHashQueryBounds(center, radiusInM);
@@ -255,13 +263,43 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         TextView textView = findViewById(R.id.infoText);
         TextView icuBedTxt = findViewById(R.id.icuBeds);
         TextView covidBedsTxt = findViewById(R.id.covidBeds);
+        TextView normalBedsTxt = findViewById(R.id.normalBeds);
         TextView hospitalName = findViewById(R.id.hospitalName);
 
         if (hospitals.size() > 0) {
-            hospitalName.setText(hospitals.get(0).getmHospitalName());
-            covidBedsTxt.setText(String.valueOf(hospitals.get(0).getmNumberOfBedsVacant()));
+            Hospital hospital = hospitals.get(0);
+            hospitalName.setText(hospital.getmHospitalName());
+            if (hospital.getmVacantICUBeds() <= 0){
+                icuBedTxt.setTextColor(Color.RED);
+            } else {
+                icuBedTxt.setTextColor(Color.GREEN);
+            }
+            String icuText = "ICU Beds : " + String.valueOf(hospital.getmVacantICUBeds())
+                    + "/" + String.valueOf(hospital.getmTotalICUBeds());
+            icuBedTxt.setText(icuText);
+
+            if (hospital.getmVacantCovidBeds() <= 0){
+                covidBedsTxt.setTextColor(Color.RED);
+            } else {
+                covidBedsTxt.setTextColor(Color.GREEN);
+            }
+            String covidText = "Covid Beds : " + String.valueOf(hospital.getmVacantCovidBeds())
+                    + "/" + String.valueOf(hospital.getmTotalNoOfCovidBeds());
+            covidBedsTxt.setText(covidText);
+
+            if (hospital.getmVacantNormalBeds() <= 0){
+                normalBedsTxt.setTextColor(Color.RED);
+            } else {
+                normalBedsTxt.setTextColor(Color.GREEN);
+            }
+            String normalText = "Covid Beds : " + String.valueOf(hospital.getmVacantNormalBeds())
+                    + "/" + String.valueOf(hospital.getmTotalNormalBeds());
+            normalBedsTxt.setText(normalText);
+
+            textView.setText(String.valueOf(hospitals.size())+ " Hospitals found in our database");
         } else {
-            textView.setText("No hope for you! No Hospitals nearby. Say good bye to your family and friends.");
+            findViewById(R.id.hospitalDetailsLayout).setVisibility(View.GONE);
+            textView.setText("No Beds found in our database 100 km radius! No Hospitals nearby.");
         }
     }
 

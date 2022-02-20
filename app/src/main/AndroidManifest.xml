@@ -38,6 +38,14 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDb0fyTiwMMM3XjiXZzB6NAnu1iwDuRJoU" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 

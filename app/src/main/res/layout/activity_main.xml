@@ -44,16 +44,6 @@
         android:layout_gravity="center_horizontal"/>
 
 
-    <TextView
-        android:id="@+id/bedsNearYou"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        android:text="Beds near you..."
-        android:textColor="@android:color/darker_gray"
-        android:textSize="22sp" />
 
 
     <TextView
@@ -62,7 +52,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bedsNearYou"
+        app:layout_constraintTop_toBottomOf="@id/name"
         android:text="Loading Hospital Information"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
@@ -76,10 +66,12 @@
         xmlns:map="http://schemas.android.com/apk/res-auto"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:id="@+id/map"
-        map:layout_constraintTop_toBottomOf="@id/bedsNearYou"
+        map:layout_constraintTop_toBottomOf="@id/name"
         map:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
+
+
 
     <LinearLayout
         app:layout_constraintBottom_toBottomOf="parent"
@@ -92,6 +84,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:background="@android:color/white">
+
+
 
         <TextView
             android:id="@+id/hospitalName"
@@ -131,6 +125,39 @@
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
+        <LinearLayout
+            android:id="@+id/actions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="0.3"
+                android:layout_height="wrap_content"
+                android:text="Previous"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:id="@+id/prev" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_weight="0.4"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:textAllCaps="false"
+                android:padding="4dp"
+                android:text="Get Directions"
+                android:id="@+id/direction" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="0.3"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:id="@+id/next" />
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,10 +12,12 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -258,52 +260,130 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private ProgressBar progressBar;
+    private int hospitalIndex = 0;
+
+    TextView textView;
+    TextView icuBedTxt;
+    TextView covidBedsTxt;
+    TextView normalBedsTxt;
+    TextView hospitalName;
+
+    Button nextBtn;
+    Button prevBtn;
+    Button directionBtn;
+
     private void showHospitals() {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
-        TextView textView = findViewById(R.id.infoText);
-        TextView icuBedTxt = findViewById(R.id.icuBeds);
-        TextView covidBedsTxt = findViewById(R.id.covidBeds);
-        TextView normalBedsTxt = findViewById(R.id.normalBeds);
-        TextView hospitalName = findViewById(R.id.hospitalName);
+
+        if (textView == null) {
+            setUpCommands();
+        }
 
 
         if (hospitals.size() > 0) {
-            Hospital hospital = hospitals.get(0);
-            hospitalName.setText(hospital.getmHospitalName());
-            if (hospital.getmVacantICUBeds() <= 0){
-                icuBedTxt.setTextColor(Color.RED);
-            } else {
-                icuBedTxt.setTextColor(Color.GREEN);
-            }
-            String icuText = "ICU Beds : " + String.valueOf(hospital.getmVacantICUBeds())
-                    + "/" + String.valueOf(hospital.getmTotalICUBeds());
-            icuBedTxt.setText(icuText);
-
-            if (hospital.getmVacantCovidBeds() <= 0){
-                covidBedsTxt.setTextColor(Color.RED);
-            } else {
-                covidBedsTxt.setTextColor(Color.GREEN);
-            }
-            String covidText = "Covid Beds : " + String.valueOf(hospital.getmVacantCovidBeds())
-                    + "/" + String.valueOf(hospital.getmTotalNoOfCovidBeds());
-            covidBedsTxt.setText(covidText);
-
-            if (hospital.getmVacantNormalBeds() <= 0){
-                normalBedsTxt.setTextColor(Color.RED);
-            } else {
-                normalBedsTxt.setTextColor(Color.GREEN);
-            }
-            String normalText = "Covid Beds : " + String.valueOf(hospital.getmVacantNormalBeds())
-                    + "/" + String.valueOf(hospital.getmTotalNormalBeds());
-            normalBedsTxt.setText(normalText);
-
-            textView.setText(String.valueOf(hospitals.size())+ " Hospitals found in our database");
+           setInformation();
         } else {
             findViewById(R.id.hospitalDetailsLayout).setVisibility(View.GONE);
             textView.setText("No Beds found in our database 100 km radius! No Hospitals nearby.");
         }
         locateHospitalsOnMap();
+    }
+
+    private void setInformation() {
+        Hospital hospital = hospitals.get(hospitalIndex);
+        hospitalName.setText(hospital.getmHospitalName());
+        if (hospital.getmVacantICUBeds() <= 0){
+            icuBedTxt.setTextColor(Color.RED);
+        } else {
+            icuBedTxt.setTextColor(Color.GREEN);
+        }
+        String icuText = "ICU Beds : " + String.valueOf(hospital.getmVacantICUBeds())
+                + "/" + String.valueOf(hospital.getmTotalICUBeds());
+        icuBedTxt.setText(icuText);
+
+        if (hospital.getmVacantCovidBeds() <= 0){
+            covidBedsTxt.setTextColor(Color.RED);
+        } else {
+            covidBedsTxt.setTextColor(Color.GREEN);
+        }
+        String covidText = "Covid Beds : " + String.valueOf(hospital.getmVacantCovidBeds())
+                + "/" + String.valueOf(hospital.getmTotalNoOfCovidBeds());
+        covidBedsTxt.setText(covidText);
+
+        if (hospital.getmVacantNormalBeds() <= 0){
+            normalBedsTxt.setTextColor(Color.RED);
+        } else {
+            normalBedsTxt.setTextColor(Color.GREEN);
+        }
+        String normalText = "Covid Beds : " + String.valueOf(hospital.getmVacantNormalBeds())
+                + "/" + String.valueOf(hospital.getmTotalNormalBeds());
+        normalBedsTxt.setText(normalText);
+
+        textView.setText(String.valueOf(hospitals.size())+ " Hospitals found in our database");
+
+        setUpShiftButtons();
+    }
+
+    private void setUpShiftButtons() {
+        if (hospitals.size() - 1 <= hospitalIndex){
+            nextBtn.setEnabled(false);
+        } else {
+            nextBtn.setEnabled(true);
+        }
+
+        if (hospitalIndex <= 0){
+            prevBtn.setEnabled(false);
+        } else {
+            prevBtn.setEnabled(true);
+        }
+    }
+
+    private void setUpCommands() {
+        textView = findViewById(R.id.infoText);
+        icuBedTxt = findViewById(R.id.icuBeds);
+        covidBedsTxt = findViewById(R.id.covidBeds);
+        normalBedsTxt = findViewById(R.id.normalBeds);
+        hospitalName = findViewById(R.id.hospitalName);
+
+        nextBtn = findViewById(R.id.next);
+        prevBtn = findViewById(R.id.prev);
+        directionBtn = findViewById(R.id.direction);
+
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hospitalIndex++;
+                setInformation();
+                moveCamera();
+            }
+        });
+
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hospitalIndex--;
+                setInformation();
+                moveCamera();
+            }
+        });
+
+        directionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String address = "https://www.google.com/maps/dir/?api=1&destination=" + String.valueOf(
+                        hospitals.get(hospitalIndex).getmHospitalLatitude()
+                ) + "," + String.valueOf(hospitals.get(hospitalIndex).getmHospitalLongitude());
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse(address));
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void moveCamera() {
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(hospitals.get(hospitalIndex).getmHospitalLatitude(),
+                hospitals.get(hospitalIndex).getmHospitalLongitude()), 13));
     }
 
     private ArrayList<Hospital> hospitals;

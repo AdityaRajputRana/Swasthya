@@ -120,13 +120,14 @@ public class SignUpHospital extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 dialog.dismiss();
                                 if (task.isSuccessful()) {
-                                    if(geoHash!=null) {
-                                        String UId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                    if(geoHash!=null && !geoHash.isEmpty()) {
+
+                                        FirebaseUser user = mAuth.getCurrentUser();
                                         //initially set all number of beds = 0
-                                        Hospital hospital = new Hospital(hospitalName, longitude, latitude, geoHash, 0, 0, 0, 0, 0, 0, email, UId);
+                                        Hospital hospital = new Hospital(hospitalName, longitude, latitude, geoHash, 0, 0, 0, 0, 0, 0, email, "");
                                         FirebaseFirestore.getInstance()
                                                 .collection("Hospitals")
-                                                .document(UId)
+                                                .document(user.getUid())
                                                 .set(hospital)
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override

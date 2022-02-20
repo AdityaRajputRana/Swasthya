@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Location mLocation;
 
     private void fetchHospitals(Location location) {
-        Toast.makeText(this, "Location Fetched", Toast.LENGTH_SHORT).show();
+
         Log.i("SWA", "Location");
 
 

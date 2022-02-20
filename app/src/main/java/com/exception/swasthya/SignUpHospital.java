@@ -126,7 +126,7 @@ public class SignUpHospital extends AppCompatActivity {
                                             if(geoHash!=null) {
                                                 String UId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                                 //initially set all number of beds = 0
-                                                Hospital hospital = new Hospital(hospitalName, latitude, longitude, geoHash, 0, 0, 0, 0, 0, 0, email, UId);
+                                                Hospital hospital = new Hospital(hospitalName, longitude, latitude, geoHash, 0, 0, 0, 0, 0, 0, email, UId);
                                                 FirebaseFirestore.getInstance()
                                                         .collection("Hospitals")
                                                         .document(UId)

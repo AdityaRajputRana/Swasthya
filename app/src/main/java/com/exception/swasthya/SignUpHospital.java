@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -86,8 +87,6 @@ public class SignUpHospital extends AppCompatActivity {
         buttonFetchLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //fetch location and store in global geohash, latitude longitude
-
                 getLastLocation();
             }
         });
@@ -137,6 +136,8 @@ public class SignUpHospital extends AppCompatActivity {
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()){
                                                             Toast.makeText(SignUpHospital.this, "Hospital ID created", Toast.LENGTH_LONG).show();
+                                                            SharedPreferences preferences = SignUpHospital.this.getSharedPreferences("MyPref",MODE_PRIVATE);
+                                                            preferences.edit().putBoolean("isHospital", true);
                                                             Intent intent = new Intent(SignUpHospital.this, ChangeNumberOfBeds.class);
                                                             startActivity(intent);
                                                             SignUpHospital.this.finish();
@@ -150,8 +151,6 @@ public class SignUpHospital extends AppCompatActivity {
                                                 Toast.makeText(SignUpHospital.this, "Please Presss the button Fetch location",Toast.LENGTH_LONG).show();
                                             }
                                         } else {
-                                            // If sign in fails, display a message to the user.
-                                            //Log.w(TAG, "signInWithEmail:failure", task.getException());
                                             Toast.makeText(SignUpHospital.this, "Authentication failed. Please Retry"
                                                             + task.getException().getMessage(),
                                                     Toast.LENGTH_SHORT).show();

@@ -30,6 +30,7 @@ public class ChangeNumberOfBeds extends AppCompatActivity {
     EditText editTextCovidTotal;
     Hospital hospital;
     String UId;
+    TextView hospitalName;
 
 
 
@@ -55,6 +56,7 @@ public class ChangeNumberOfBeds extends AppCompatActivity {
                     editTextNormalVacant.setText(String.valueOf(hospital.getmVacantNormalBeds()));
                     editTextICUVacant.setText(String.valueOf(hospital.getmVacantICUBeds()));
                     editTextICUTotal.setText(String.valueOf(hospital.getmTotalICUBeds()));
+                    hospitalName.setText(String.valueOf(hospital.getmHospitalName()));
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -121,5 +123,6 @@ public class ChangeNumberOfBeds extends AppCompatActivity {
         editTextICUVacant = findViewById(R.id.edittext_icu_vacant);
         editTextCovidVacant = findViewById(R.id.edittext_covid_vacant);
         editTextCovidTotal = findViewById(R.id.edittext_covid_total);
+        hospitalName= findViewById(R.id.hospitalName);
     }
 }

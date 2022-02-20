@@ -205,6 +205,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void logOut(View view){
         FirebaseAuth.getInstance().signOut();
+        try {
+            SharedPreferences preferences = MainActivity.this.getSharedPreferences("MyPref", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.remove("isHospital").apply();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         startActivity(new Intent(this, SignUpActivity.class));
         finish();
     }

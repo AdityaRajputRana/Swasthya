@@ -26,6 +26,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Hospital Name"
+            android:textSize="60sp"
+            android:textColor="@color/color_primary"
+            android:id="@+id/hospital_name_on_change_beds"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Normal Beds"
             android:textSize="50sp"
             android:textColor="@color/color_primary"
